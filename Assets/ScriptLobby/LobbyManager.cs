@@ -18,7 +18,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine.SceneManagement;
 public class LobbyManager : MonoBehaviour
 {
-
+    public GameObject iniciaJogo;
     public TMP_Text[] lobbyList; 
     public TextMeshProUGUI TextoCodigo;
     public TMP_InputField inputFieldInseriCodigo, InputNome;
@@ -57,7 +57,7 @@ public class LobbyManager : MonoBehaviour
                 Player = GetPlayer(),
                 Data = new Dictionary<string, DataObject>
                 {
-                    { "StarGame",new DataObject(DataObject.VisibilityOptions.Member,"0")}
+                    { "StartGame",new DataObject(DataObject.VisibilityOptions.Member,"0")}
                 }
             };
 
@@ -96,13 +96,13 @@ public class LobbyManager : MonoBehaviour
         }
         
     }
-    public void verificaUpdate() 
+    public void verificaUpdate()
     {
         if (joinedLobby == null)
             return;
-        if (iniciouOJogo == true) 
+        if (joinedLobby.Data != null && joinedLobby.Data.ContainsKey("StartGame") && joinedLobby.Data["StartGame"].Value != "0")
         {
-            entraRelay(joinedLobby.Data["StarGame"].Value);
+            entraRelay(joinedLobby.Data["StartGame"].Value);
         }
         AtualizaLobby();
         MostraPlayers();
